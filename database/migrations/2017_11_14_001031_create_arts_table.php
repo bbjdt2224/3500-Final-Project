@@ -15,6 +15,10 @@ class CreateArtsTable extends Migration
     {
         Schema::create('arts', function (Blueprint $table) {
             $table->increments('id');
+            $table->increments('Aid');
+            $table->String('Title');
+            $table->Binary('Photo');
+            $table->String('Catagory');
             $table->timestamps();
         });
     }
