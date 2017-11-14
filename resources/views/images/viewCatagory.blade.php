@@ -12,7 +12,7 @@
 		<div class="thumbnail">
 			<a href="{{route("picture")}}">
 				<div class="col-md-4">
-					<img src="{{$a->Photo}}">
+					<img src="{{$a->Square}}">
 				</div>
 				<div class="caption" style="float: right;">
 					<span class="glyphicon glyphicon-thumbs-up"></span>{{likes}}

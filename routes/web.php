@@ -29,4 +29,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/gallery/{catagory}', 'ArtController@gallery')->name('gallery');
 
+Route::get('/picture/{id}', 'ArtController@picture')->name('picture');
+
 Route::post('/add', 'ArtController@add')->name('add');
