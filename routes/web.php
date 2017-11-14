@@ -28,3 +28,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/gallery/{catagory}', 'ArtController@gallery')->name('gallery');
+
+Route::post('/add', 'ArtController@add')->name('add');

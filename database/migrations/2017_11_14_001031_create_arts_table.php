@@ -17,7 +17,8 @@ class CreateArtsTable extends Migration
             $table->increments('id');
             $table->integer('Aid');
             $table->String('Title');
-            $table->Binary('Photo');
+            $table->binary('Photo');
+            $table->binary('Square');
             $table->String('Catagory');
             $table->timestamps();
         });
