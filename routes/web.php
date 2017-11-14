@@ -26,3 +26,5 @@ Route::get('/register', function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/gallery/{catagory}', 'ArtController@gallery')->name('gallery');
