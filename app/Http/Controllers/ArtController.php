@@ -14,7 +14,7 @@ class ArtController extends Controller
     	return view('images.viewCatagory()', compact('art'));
     }
 
-    public function add(){
-    	DB::select(DB::raw("insert into table values (".$id.",".$Title.",".$Photo.",".$Square.",".$Catagory.","")");
+    public function add($id, $title, $photo, $square, $catagory){
+    	DB::select(DB::raw("insert into Art values (".$id.",".$Title.",".$Photo.",".$Square.",".$Catagory.","")");
     }
 }
