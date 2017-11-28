@@ -1,25 +1,41 @@
-@extends('layout.nav')
+@extends('layouts.nav')
 
 @section('body')
 	<?php
 		$i = 0;
 	?>
 	<div class="row">
-	@foreach($art as $a)
-		@if($i % 3 = 0)
-			</div><div clas="row">
-		@endif
-		<div class="thumbnail">
-			<a href="{{route("picture")}}">
-				<div class="col-md-4">
-					<img src="{{$a->Square}}">
-				</div>
-				<div class="caption" style="float: right;">
-					<span class="glyphicon glyphicon-thumbs-up"></span>{{likes}}
-					<span class="glyphicon glyphicon-thumbs-down"></span>{{likes}}
-				</div>
-			</a>
-		</div>
-	@endforeach
+		@foreach($art as $a)
+			@if($i % 3 == 0)
+				</div><div clas="row">
+			@endif
+			<div class="col-md-4">
+				<a href="{{route("picture", ["id"=> $a->id])}}">
+					<div class="thumbnail">
+						<img src="{{asset("images/square/".$a->Square)}}">
+						<div class="caption">
+							{{$a->Title}}
+							<div style="float: right;">
+								<a href="{{route('like', ["id"=>$a->id])}}">
+									<span class="glyphicon glyphicon-thumbs-up"></span>
+									@if(isset($likes[$i]->Likes))
+										{{$likes[$i]->Likes}}
+									@endif
+								</a>
+								<a href="{{route('dislike', ["id"=>$a->id])}}">
+									<span class="glyphicon glyphicon-thumbs-down"></span>
+									@if(isset($likes[$i]->Dislikes))
+										{{$likes[$i]->Dislikes}}
+									@endif
+								</a>
+							</div>
+							<br/>
+						</div>
+					</div>
+				</a>
+				<?php $i++; ?>
+			</div>
+		@endforeach
+	</div>
 	
 @endsection

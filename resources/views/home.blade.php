@@ -1,23 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.nav')
 
-@section('content')
-<div class="container">
+@section('body')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Lauren</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <a href="{{route('addPicture')}}" class="btn btn-default">Add</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
