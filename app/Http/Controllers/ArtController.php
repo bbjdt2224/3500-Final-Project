@@ -39,8 +39,9 @@ class ArtController extends Controller
     public function picture($id){
     	//$art = DB::select(DB::raw("  select picture by id with likes  "));
         $art = Art::find($id);
+        $gallery = Art::where("Catagory", '=', $art->Catagory)->get();
         $likes = Likes::where("aid", "=", $id)->first();
-    	return view('images.viewPicture', compact('art', 'likes'));
+    	return view('images.viewPicture', compact('art', 'likes', 'gallery'));
     }
 
     public function addPicture(){

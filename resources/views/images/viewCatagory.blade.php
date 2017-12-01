@@ -16,18 +16,20 @@
 						<div class="caption">
 							{{$a->Title}}
 							<div style="float: right;">
-								<a href="{{route('like', ["id"=>$a->id])}}">
-									<span class="glyphicon glyphicon-thumbs-up"></span>
-									@if(isset($likes[$i]->Likes))
-										{{$likes[$i]->Likes}}
-									@endif
-								</a>
-								<a href="{{route('dislike', ["id"=>$a->id])}}">
-									<span class="glyphicon glyphicon-thumbs-down"></span>
-									@if(isset($likes[$i]->Dislikes))
-										{{$likes[$i]->Dislikes}}
-									@endif
-								</a>
+								@Auth
+									<a href="{{route('like', ["id"=>$a->id])}}">
+										<span class="glyphicon glyphicon-thumbs-up"></span>
+										@if(isset($likes[$i]->Likes))
+											{{$likes[$i]->Likes}}
+										@endif
+									</a>
+									<a href="{{route('dislike', ["id"=>$a->id])}}">
+										<span class="glyphicon glyphicon-thumbs-down"></span>
+										@if(isset($likes[$i]->Dislikes))
+											{{$likes[$i]->Dislikes}}
+										@endif
+									</a>
+								@endAuth
 							</div>
 							<br/>
 						</div>

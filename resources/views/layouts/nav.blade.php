@@ -12,7 +12,7 @@
 	<title>Lauren</title>
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" style="background-color: #FFD700; height: 4em;">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="{{route('home')}}">Lauren</a>
@@ -24,6 +24,24 @@
 				<li><a href="{{route("gallery", ['catagory'=>"Paintings"])}}">Paintings</a></li>
 				<li><a href="{{route("gallery", ['catagory'=>"Drawing"])}}">Drawing</a></li>
 			</ul>
+			@if (Route::has('login'))
+	            <ul class="nav navbar-nav navbar-right">
+	                @auth
+	                	<li><a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                            Logout
+                        </a></li>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+	                @else
+	                    <li><a href="{{ route('login') }}">Login</a></li>
+	                    <li><a href="{{ route('register') }}">Register</a></li>
+	                @endauth
+	            </ul>
+	        @endif
 		</div>
 	</nav>
 
