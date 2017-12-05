@@ -17,9 +17,10 @@ class CreateLikesTable extends Migration
             $table->increments('id');
             $table->integer('uid');
             $table->integer('aid');
-            $table->Boolean('Likes');
-            $table->Boolean('Dislikes');
+            $table->Boolean('likes');
             $table->timestamps();
+            $table->foreign('uid')->references('id')->on('users');
+            $table->foreign('aid')->references('id')->on('arts');
         });
     }
 
