@@ -30,3 +30,7 @@ Route::post('/add', 'ArtController@add')->name('add');
 Route::get('/like/{id}', 'LikesController@like')->name('like');
 
 Route::get('/dislike/{id}', 'LikesController@dislike')->name('dislike');
+
+Route::post('/search', 'ArtController@search')->name('search');
+
+Route::post('/searchPage', 'ArtController@searchPage')->name('searchPage');

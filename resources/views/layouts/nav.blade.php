@@ -24,6 +24,16 @@
 				<li><a href="{{route("gallery", ['catagory'=>"Paintings"])}}">Paintings</a></li>
 				<li><a href="{{route("gallery", ['catagory'=>"Drawing"])}}">Drawing</a></li>
 			</ul>
+			<form class="navbar-form navbar-left" method="post" action="{{route('searchPage')}}">
+				<div class="form-group ">
+					{{ csrf_field() }}
+					<input type="text" class="form-control" placeholder="Search" id="searchbar" onkeyup="search();" list="results" name="s">
+					<datalist id="results">
+						
+					</datalist>
+				</div>
+				<button type="submit" class="btn btn-default">Search</button>
+			</form>
 			@if (Route::has('login'))
 	            <ul class="nav navbar-nav navbar-right">
 	                @auth
@@ -52,5 +62,35 @@
 
 	</footer>
 	<script src="{{ asset('js/app.js') }}"></script>
+	<script type="text/javascript">
+		function search(){
+
+			var val = $("#searchbar").val();
+			console.log($("input[name=_token]").val());
+		    $.ajax({ 
+		    	headers: {
+		            'X-CSRF-TOKEN': $("input[name=_token]").val()
+		        }, 
+		        url:"{{route('search')}}",  
+		        method:"POST",  
+		        data:{val:val},                              
+		        success: function( data ) {
+		        	var list = "";
+		            if(data.length < 5){
+		            	for(var i = 0; i < data.length; i ++){
+		            		list += "<option value="+data[i]["Title"]+">";
+		            	}
+		            }
+		            else{
+		            	for(var i = 0; i < 5; i ++){
+		            		list += "<option value="+data[i]["Title"]+">";
+		            	}
+		            }
+		            console.log(list);
+		            $("#results").html(list);
+		        }
+		    });
+		} 
+	</script>
 </body>
 </html>

@@ -12,8 +12,7 @@ use App\Likes;
 class ArtController extends Controller
 {
     public function gallery($catagory){
-    	//$art = DB::select(DB::raw("Select a.square, l.likes, l.dislikes From Arts a, Likes l Where a.aid = l.aid and catagory = '".$catagory."'"));
-
+    	//$art = DB::select(DB::raw("Select DISTINCT a.id, a.title, a.square, l.likes, l.dislikes, l.uid From Arts a, Likes l Where a.catagory = '".$catagory."'"));
         $art = Art::where("Catagory", '=', $catagory)->get();
         $likes = array();
 
@@ -46,5 +45,20 @@ class ArtController extends Controller
 
     public function addPicture(){
         return view('images.addImage');
+    }
+
+    public function searchPage(){
+        $art = Art::where("Title", 'LIKE', request("s")."%")->get();
+        $likes = array();
+
+        foreach($art as $a){
+            $likes[] = Likes::where("aid", '=', $a->id)->first();
+        }
+        return view('images.viewCatagory', compact('art', 'likes'));
+    }
+
+    public function search(){
+        $result = Art::where("Title", 'LIKE', request("val")."%")->get();
+        return $result;
     }
 }
