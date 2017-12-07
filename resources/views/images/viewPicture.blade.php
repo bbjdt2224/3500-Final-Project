@@ -3,11 +3,11 @@
 @section('body')
 	<div class="row">
 		<div class="col-md-2" style="overflow-y: auto; height: 90%;">
-			<h1><a href="{{route("gallery", ["catagory"=>$art->Catagory])}}">{{$art->Title}}</a></h1>
+			<h1><a href="{{route("gallery", ["catagory"=>$art->catagory])}}">{{$art->title}}</a></h1>
 			@foreach($gallery as $pic)
 				<a href="{{route("picture", ["id"=> $pic->id])}}">
 					<div class="thumbnail">
-						<img width="100%" src="{{asset("images/square/".$pic->Square)}}">
+						<img width="100%" src="{{asset("images/square/".$pic->square)}}">
 					</div>
 				</a>
 			@endforeach
@@ -15,8 +15,8 @@
 		<div class="col-md-10">
 			<div class="row">
 				<div class="col-md-9">
-					<h1>{{$art->Title}}</h1>
-					<img width="100%" src="{{asset("images/".$art->Photo)}}">
+					<h1>{{$art->title}}</h1>
+					<img width="100%" src="{{asset("images/".$art->photo)}}">
 				</div>
 				<div class="col-md-3">
 					<br>
@@ -30,7 +30,7 @@
 									<span class="glyphicon glyphicon-thumbs-up"></span>
 								</a>
 							@endAuth
-							Likes: {{$likes->Likes}}
+							Likes: {{$likes}}
 						</h1>
 					@else
 						<h1>
@@ -50,7 +50,7 @@
 									<span class="glyphicon glyphicon-thumbs-down"></span>
 								</a>
 							@endAuth
-						Dislikes: {{$likes->Dislikes}}
+						Dislikes: {{$dislikes}}
 						</h1>
 					@else
 						<h1>

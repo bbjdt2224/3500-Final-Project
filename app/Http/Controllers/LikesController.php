@@ -10,35 +10,29 @@ use Illuminate\Http\Request;
 class LikesController extends Controller
 {
     public function like($id){
-    	$likes = Likes::where("aid", "=", $id)->first();
+    	$likes = Likes::where("aid", "=", $id)->where("uid", "=", Auth::id())->first();
     	if($likes != null){
-    		$num = $likes->Likes;
-    		$num ++;
-    		$likes->update(["Likes"=>$num]);
+    		$likes->update(["likes"=>1]);
     	}
     	else{
     		Likes::create([
     			'uid' => Auth::id(),
     			'aid' => $id,
-    			'Likes' => "1",
-    			'Dislikes' => "0",
+    			'likes' => "1",
     		]);
     	}
     	return back();
     }
     public function dislike($id){
-    	$likes = Likes::where("aid", "=", $id)->first();
+    	$likes = Likes::where("aid", "=", $id)->where("uid", "=", Auth::id())->first();
     	if($likes != null){
-    		$num = $likes->Dislikes;
-    		$num ++;
-    		$likes->update(["Dislikes"=>$num]);
+    		$likes->update(["likes"=>0]);
     	}
     	else{
     		Likes::create([
     			'uid' => Auth::id(),
     			'aid' => $id,
-    			'Likes' => "0",
-    			'Dislikes' => "1",
+    			'likes' => "0",
     		]);
     	}
     	return back();

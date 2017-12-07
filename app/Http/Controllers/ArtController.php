@@ -13,24 +13,33 @@ class ArtController extends Controller
 {
     public function gallery($catagory){
     	//$art = DB::select(DB::raw("Select DISTINCT a.id, a.title, a.square, l.likes, l.dislikes, l.uid From Arts a, Likes l Where a.catagory = '".$catagory."'"));
-        $art = Art::where("Catagory", '=', $catagory)->get();
+        $art = Art::where("catagory", '=', $catagory)->get();
         $likes = array();
+        $dislikes = array();
 
         foreach($art as $a){
-            $likes[] = Likes::where("aid", '=', $a->id)->first();
+            $l = Likes::where("aid", '=', $a->id)->get();
+            foreach($l as $i){
+                $likes[$i->aid] = 0;
+                if($i->likes == 1){
+                    $likes[$i->aid] ++;
+                }
+                elseif($i->likes == 0){
+                    $dislikes[$i->aid] ++;
+                }
+            }
         }
 
-    	return view('images.viewCatagory', compact('art', 'likes'));
+    	return view('images.viewCatagory', compact('art', 'likes', 'dislikes'));
     }
 
     public function add(){
     	//$home = DB::select(DB::raw("insert into Arts values ('1',".request('title')."','".request('photo')."','".request('square')."','".request('catagory')."')"));
         $home = Art::create([
-            'Aid' => '0',
-            'Title' => request('title'),
-            'Photo' => request('photo'),
-            'Square' => request('square'),
-            'Catagory' => request('catagory'),
+            'title' => request('title'),
+            'photo' => request('photo'),
+            'square' => request('square'),
+            'catagory' => request('catagory'),
         ]);
     	return redirect(route('home'));
     }
@@ -38,9 +47,19 @@ class ArtController extends Controller
     public function picture($id){
     	//$art = DB::select(DB::raw("  select picture by id with likes  "));
         $art = Art::find($id);
-        $gallery = Art::where("Catagory", '=', $art->Catagory)->get();
-        $likes = Likes::where("aid", "=", $id)->first();
-    	return view('images.viewPicture', compact('art', 'likes', 'gallery'));
+        $gallery = Art::where("catagory", '=', $art->catagory)->get();
+        $likes = 0;
+        $dislikes = 0;
+        $l = Likes::where("aid", '=', $id)->get();
+        foreach($l as $i){
+            if($i->likes == 1){
+                $likes ++;
+            }
+            elseif($i->likes == 0){
+                $dislikes ++;
+            }
+        }
+    	return view('images.viewPicture', compact('art', 'likes', 'dislikes', 'gallery'));
     }
 
     public function addPicture(){
@@ -48,7 +67,7 @@ class ArtController extends Controller
     }
 
     public function searchPage(){
-        $art = Art::where("Title", 'LIKE', request("s")."%")->get();
+        $art = Art::where("title", 'LIKE', request("s")."%")->get();
         $likes = array();
 
         foreach($art as $a){
@@ -58,7 +77,7 @@ class ArtController extends Controller
     }
 
     public function search(){
-        $result = Art::where("Title", 'LIKE', request("val")."%")->get();
+        $result = Art::where("title", 'LIKE', request("val")."%")->get();
         return $result;
     }
 }

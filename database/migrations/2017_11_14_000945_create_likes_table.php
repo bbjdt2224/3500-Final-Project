@@ -19,8 +19,8 @@ class CreateLikesTable extends Migration
             $table->integer('aid');
             $table->Boolean('likes');
             $table->timestamps();
-            $table->foreign('uid')->references('id')->on('users');
-            $table->foreign('aid')->references('id')->on('arts');
+            //$table->foreign('uid')->references('id')->on('users');
+            //$table->foreign('aid')->references('id')->on('arts');
         });
     }
 

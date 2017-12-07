@@ -12,21 +12,21 @@
 			<div class="col-md-4">
 				<a href="{{route("picture", ["id"=> $a->id])}}">
 					<div class="thumbnail">
-						<img src="{{asset("images/square/".$a->Square)}}">
+						<img src="{{asset("images/square/".$a->square)}}">
 						<div class="caption">
-							{{$a->Title}}
+							{{$a->title}}
 							<div style="float: right;">
 								@Auth
 									<a href="{{route('like', ["id"=>$a->id])}}">
 										<span class="glyphicon glyphicon-thumbs-up"></span>
-										@if(isset($likes[$i]->Likes))
-											{{$likes[$i]->Likes}}
+										@if(isset($likes[$a->id]))
+											{{$likes[$a->id]}}
 										@endif
 									</a>
 									<a href="{{route('dislike', ["id"=>$a->id])}}">
 										<span class="glyphicon glyphicon-thumbs-down"></span>
-										@if(isset($likes[$i]->Dislikes))
-											{{$likes[$i]->Dislikes}}
+										@if(isset($dislikes[$a->id]))
+											{{$dislikes[$a->id]}}
 										@endif
 									</a>
 								@endAuth
