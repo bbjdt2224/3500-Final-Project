@@ -13,11 +13,11 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('add');
 
 Route::get('/gallery/{catagory}', 'ArtController@gallery')->name('gallery');
 
@@ -34,3 +34,5 @@ Route::get('/dislike/{id}', 'LikesController@dislike')->name('dislike');
 Route::post('/search', 'ArtController@search')->name('search');
 
 Route::post('/searchPage', 'ArtController@searchPage')->name('searchPage');
+
+Route::get('/viewLikes', 'ArtController@viewLikes')->name('viewLikes');

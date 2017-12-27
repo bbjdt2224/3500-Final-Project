@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use App\Art;
 use App\Likes;
+use Auth;
 
 class ArtController extends Controller
 {
@@ -21,6 +22,7 @@ class ArtController extends Controller
             $l = Likes::where("aid", '=', $a->id)->get();
             foreach($l as $i){
                 $likes[$i->aid] = 0;
+                $dislikes[$i->aid] = 0;
                 if($i->likes == 1){
                     $likes[$i->aid] ++;
                 }
@@ -79,5 +81,31 @@ class ArtController extends Controller
     public function search(){
         $result = Art::where("title", 'LIKE', request("val")."%")->get();
         return $result;
+    }
+
+    public function viewLikes(){
+        $pics = Likes::where('uid', '=', Auth::id())->get();
+        $art = array();
+        foreach($pics as $p){
+            $art[] = Art::where("id", '=', $p->aid)->first();
+        }
+        $likes = array();
+        $dislikes = array();
+
+        foreach($art as $a){
+            $l = Likes::where("aid", '=', $a->id)->get();
+            foreach($l as $i){
+                $likes[$i->aid] = 0;
+                $dislikes[$i->aid] = 0;
+                if($i->likes == 1){
+                    $likes[$i->aid] ++;
+                }
+                elseif($i->likes == 0){
+                    $dislikes[$i->aid] ++;
+                }
+            }
+        }
+
+        return view('images.viewCatagory', compact('art', 'likes', 'dislikes'));
     }
 }

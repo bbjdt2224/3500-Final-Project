@@ -37,6 +37,7 @@
 			@if (Route::has('login'))
 	            <ul class="nav navbar-nav navbar-right">
 	                @auth
+	                	<li><a href="{{route('viewLikes')}}">My Likes</a></li>
 	                	<li><a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
